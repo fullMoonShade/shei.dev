@@ -35,31 +35,37 @@ export function Navbar() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">My Portfolio</span>
+            <span className="hidden font-bold sm:inline-block"></span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-colors hover:text-foreground/80 ${
+                className={`relative transition-colors hover:text-foreground/80 ${
                   pathname === link.href ? "text-foreground" : "text-foreground/60"
                 }`}
               >
                 {link.label}
+                {pathname === link.href && (
+                  <span className="absolute inset-x-0 -bottom-px h-px bg-foreground" />
+                )}
               </Link>
             ))}
           </nav>
         </div>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden">
+            <Button 
+              variant="ghost" 
+              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+            >
               <svg
                 strokeWidth="1.5"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 w-5 transition-transform duration-200 ease-in-out hover:scale-110"
               >
                 <path
                   d="M3 5H11"
@@ -92,7 +98,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium ${
+                  className={`text-sm font-medium transition-colors duration-200 hover:text-foreground ${
                     pathname === link.href ? "text-foreground" : "text-foreground/60"
                   }`}
                 >
@@ -104,13 +110,14 @@ export function Navbar() {
         </Sheet>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="flex items-center space-x-2">
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
             <Switch
               checked={isDarkMode}
               onCheckedChange={toggleTheme}
+              className="transition-opacity duration-200 hover:opacity-80"
               aria-label="Toggle dark mode"
             />
-            <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
           </div>
         </div>
       </div>
