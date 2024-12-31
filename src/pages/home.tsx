@@ -1,4 +1,5 @@
-
+//import gsap
+//fix and implement this
 
 export default function Home() {
   return (
