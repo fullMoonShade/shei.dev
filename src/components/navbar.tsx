@@ -22,12 +22,19 @@ export function Navbar() {
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle("dark")
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark")
+    } else {
+      document.documentElement.classList.add("dark")
+    }
   }
 
   React.useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark")
-    setIsDarkMode(isDark)
+    if (!isDark) {
+      document.documentElement.classList.add("dark")
+    }
+    setIsDarkMode(true)
   }, [])
 
   return (
@@ -124,4 +131,3 @@ export function Navbar() {
     </header>
   )
 }
-
