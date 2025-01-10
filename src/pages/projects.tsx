@@ -43,13 +43,12 @@ const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Prisma"],
     githubUrl: "https://github.com/username/task-manager",
     liveUrl: "https://task-manager-demo.vercel.app"
-  },
-  // Add more projects as needed
+  }
 ]
 
 export default function Projects() {
   return (
-    <section className="py-12 px-4 md:px-6 lg:px-8">
+    <section id="projects" className="py-12 px-4 md:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-8 text-center">My Projects</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
@@ -92,4 +91,3 @@ export default function Projects() {
     </section>
   )
 }
-
