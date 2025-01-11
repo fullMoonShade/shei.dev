@@ -2,70 +2,124 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Moon, Sun } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
-const links = [
+interface NavLink {
+  href: string
+  label: string
+}
+
+const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
+  { href: "#projects", label: "Projects" },
   { href: "/contact", label: "Contact" },
 ]
 
 export function Navbar() {
   const pathname = usePathname()
-  const [isDarkMode, setIsDarkMode] = React.useState(false)
+  const router = useRouter()
+  const [isDarkMode, setIsDarkMode] = React.useState(true)
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
+
+  // Mark component as mounted
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Initialize dark mode on mount
+  React.useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (!document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.add("dark")
+      }
+    }
+  }, [])
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode)
-    if (document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark")
-    } else {
-      document.documentElement.classList.add("dark")
+    setIsDarkMode((prev) => {
+      const newValue = !prev
+      document.documentElement.classList.toggle("dark", newValue)
+      return newValue
+    })
+  }
+
+  const handleScroll = (elementId: string) => {
+    const element = document.getElementById(elementId)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
     }
   }
 
-  React.useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark")
-    if (!isDark) {
-      document.documentElement.classList.add("dark")
+  const handleNavigation = async (href: string) => {
+    setIsSheetOpen(false)
+
+    if (href.startsWith("#")) {
+      const elementId = href.slice(1)
+      if (pathname !== "/") {
+        await router.push("/")
+        requestAnimationFrame(() => handleScroll(elementId))
+      } else {
+        handleScroll(elementId)
+      }
+    } else {
+      router.push(href)
     }
-    setIsDarkMode(true)
-  }, [])
+  }
+
+  const isActive = (href: string) => {
+    if (!mounted) return false
+    
+    if (href.startsWith("#")) {
+      return pathname === "/" && typeof window !== 'undefined' && window.location.hash === href
+    }
+    return pathname === href
+  }
+
+  // Prevent hydration errors by not rendering until mounted
+  if (!mounted) {
+    return null
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block"></span>
+          <Link 
+            href="/" 
+            className="mr-6 flex items-center space-x-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <span className="hidden font-bold sm:inline-block">Your Logo</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
-            {links.map((link) => (
-              <Link
+            {NAV_LINKS.map((link) => (
+              <button
                 key={link.href}
-                href={link.href}
-                className={`relative transition-colors hover:text-foreground/80 ${
-                  pathname === link.href ? "text-foreground" : "text-foreground/60"
+                onClick={() => handleNavigation(link.href)}
+                className={`relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors hover:text-foreground/80 ${
+                  isActive(link.href) ? "text-foreground" : "text-foreground/60"
                 }`}
               >
                 {link.label}
-                {pathname === link.href && (
+                {isActive(link.href) && (
                   <span className="absolute inset-x-0 -bottom-px h-px bg-foreground" />
                 )}
-              </Link>
+              </button>
             ))}
           </nav>
         </div>
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <Button 
               variant="ghost" 
-              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+              aria-label="Toggle Menu"
             >
               <svg
                 strokeWidth="1.5"
@@ -80,37 +134,41 @@ export function Navbar() {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                ></path>
+                />
                 <path
                   d="M3 12H16"
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                ></path>
+                />
                 <path
                   d="M3 19H21"
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                ></path>
+                />
               </svg>
-              <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="pr-0">
+          <SheetContent 
+            side="left" 
+            className="pr-0"
+            onInteractOutside={() => setIsSheetOpen(false)}
+            onEscapeKeyDown={() => setIsSheetOpen(false)}
+          >
             <nav className="flex flex-col space-y-4">
-              {links.map((link) => (
-                <Link
+              {NAV_LINKS.map((link) => (
+                <button
                   key={link.href}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors duration-200 hover:text-foreground ${
-                    pathname === link.href ? "text-foreground" : "text-foreground/60"
+                  onClick={() => handleNavigation(link.href)}
+                  className={`text-sm font-medium transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    isActive(link.href) ? "text-foreground" : "text-foreground/60"
                   }`}
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
             </nav>
           </SheetContent>
