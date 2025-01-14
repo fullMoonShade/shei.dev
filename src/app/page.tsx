@@ -7,6 +7,7 @@ import Image from "next/image"
 import { Navbar } from "@/components/navbar"
 import Home from "@/pages/home"
 import Projects from "@/pages/projects"
+import ContactPage from "@/pages/contact"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -92,9 +93,12 @@ export default function Page() {
           <div className="projects">
             <Projects />
           </div>
+          <div className="contact">
+            <ContactPage />
+          </div>
         </div>
       </body>
     </html>
-  )
+  );  
 }
 
