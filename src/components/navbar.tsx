@@ -16,9 +16,8 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "#projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "#contact", label: "Contact" },
 ]
 
 export function Navbar() {
@@ -95,7 +94,7 @@ export function Navbar() {
             href="/" 
             className="mr-6 flex items-center space-x-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <span className="hidden font-bold sm:inline-block">Your Logo</span>
+            <span className="hidden font-bold sm:inline-block">shei.dev</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {NAV_LINKS.map((link) => (
