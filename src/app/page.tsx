@@ -6,13 +6,14 @@ import Home from "@/pages/home"
 import Projects from "@/pages/projects"
 import ContactPage from "@/pages/contact"
 
+
 export default function Page() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <html lang="en">
       <body>
-        <div ref={containerRef}>
+        <div>
           <div className="navbar">
             <Navbar />
           </div>
@@ -28,5 +29,5 @@ export default function Page() {
         </div>
       </body>
     </html>
-  );  
+  );
 }

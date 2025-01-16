@@ -1,4 +1,5 @@
 import React from 'react';
+import SplitText from "@/components/animations/SplitText";
 
 export default function Home() {
   const scrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -9,13 +10,16 @@ export default function Home() {
     }
   };
 
-
   const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleAnimationComplete = () => {
+    console.log('All letters have animated!');
   };
 
   return (
@@ -25,9 +29,17 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-                  Welcome to My Portfolio
-                </h1>
+                <SplitText
+                  text="Welcome to My Portfolio"
+                  className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
+                  delay={20}
+                  animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                  animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                  easing="easeOutCubic"
+                  threshold={0.2}
+                  rootMargin="-50px"
+                  onLetterAnimationComplete={handleAnimationComplete}
+                />
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
                   I'm a passionate developer creating beautiful and functional web experiences.
                 </p>

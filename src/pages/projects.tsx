@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from 'lucide-react'
 
-// Define the Project type
+// Define Project type
 type Project = {
   id: number;
   title: string;
