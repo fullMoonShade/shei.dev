@@ -1,5 +1,6 @@
 import React from 'react';
 import SplitText from "@/components/animations/SplitText";
+import ShapeBlur from "@/components/animations/ShapeBlur"
 
 export default function Home() {
   const scrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -23,8 +24,19 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-1 flex items-center justify-center">
+    <div className="flex flex-col min-h-screen relative">
+       <div style={{position: 'absolute', top:0, left:0, width: '100%', height: '500px', overflow: 'hidden', zIndex:0}}>
+          <ShapeBlur
+            variation={0}
+            pixelRatioProp={window.devicePixelRatio || 1}
+            shapeSize={0.5}
+            roundness={0.5}
+            borderSize={0.05}
+            circleSize={0.5}
+            circleEdge={1}
+          />
+      </div>
+      <main className="flex-1 flex items-center justify-center relative z-10">
         <section className="w-full py-12 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
