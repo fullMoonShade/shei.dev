@@ -6,3 +6,4 @@ Portfolio website for personal use
     - Fix the hydration errors
     - Improve ShapeBlur (home page)
     - Security improvements 
+    - Wrap everything in react-hydration-overlay
