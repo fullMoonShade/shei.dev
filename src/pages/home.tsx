@@ -25,11 +25,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen relative">
-       <div style={{position: 'absolute', top:0, left:0, width: '100%', height: '500px', overflow: 'hidden', zIndex:0}}>
+       <div style={{position: 'absolute', top:'10%', left:0, width: '100%', height: '500px', overflow: 'hidden', zIndex:0}}>
           <ShapeBlur
             variation={0}
             pixelRatioProp={window.devicePixelRatio || 1}
-            shapeSize={0.5}
+            shapeSize={2.}
             roundness={0.5}
             borderSize={0.05}
             circleSize={0.5}
