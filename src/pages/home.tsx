@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import SplitText from "@/components/animations/SplitText";
 import ShapeBlur from "@/components/animations/ShapeBlur"
-import {Button, ButtonGroup} from "@heroui/button";
 
 export default function Home() {
   const [pixelRatio, setPixelRatio] = useState(1); // Initialize with a default value
@@ -55,7 +54,7 @@ export default function Home() {
               <div className="space-y-2">
                 <SplitText
                   text="Welcome to My Portfolio"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
+                  className="text-3xl font-black tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-stroke-2 text-stroke-black"
                   delay={20}
                   animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
                   animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
@@ -64,25 +63,27 @@ export default function Home() {
                   rootMargin="-50px"
                   onLetterAnimationComplete={handleAnimationComplete}
                 />
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                <p className="mx-auto max-w-[700px] text-gray-700 font-medium md:text-xl dark:text-gray-400">
                   I'm a passionate developer creating beautiful and functional web experiences.
                 </p>
               </div>
               <div className="space-x-4">
-                <a
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                  href="#projects"
-                  onClick={scrollToProjects}
-                >
-                  View Projects
-                </a>
-                <a
-                  className="inline-flex h-9 items-center justify-center rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              <a
+                className="inline-flex h-9 items-center justify-center rounded-full bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                href="#projects"
+                onClick={scrollToProjects}
+              >
+                View Projects
+              </a>
+              <a
+                  className="inline-flex h-9 items-center justify-center rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
                   href="#contact"
                   onClick={scrollToContact}
                 >
                   Contact Me
-                </a>
+              </a>
+
+
               </div>
             </div>
           </div>
