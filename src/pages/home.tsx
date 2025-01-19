@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import SplitText from "@/components/animations/SplitText";
 import ShapeBlur from "@/components/animations/ShapeBlur"
 
 export default function Home() {
+  const [pixelRatio, setPixelRatio] = useState(1); // Initialize with a default value
+
+
+  useLayoutEffect(() => {
+    // Only attempt to access window in a browser environment
+    if (typeof window !== 'undefined') {
+      setPixelRatio(window.devicePixelRatio || 1);
+    }
+  }, []);
+
+
   const scrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const projectsSection = document.getElementById('projects');
@@ -28,7 +39,7 @@ export default function Home() {
        <div style={{position: 'absolute', top:'10%', left:0, width: '100%', height: '500px', overflow: 'hidden', zIndex:0}}>
           <ShapeBlur
             variation={0}
-            pixelRatioProp={window.devicePixelRatio || 1}
+            pixelRatioProp={pixelRatio} // Use the state value
             shapeSize={2.}
             roundness={0.5}
             borderSize={0.05}
