@@ -5,6 +5,6 @@ Portfolio website for personal use
 - To do list
     - Implement hydration-overlay in next.config.js
     - Fix the hydration errors 
-    - Improve buttons in home page
+    - Improve buttons in home page | Using heroui
     - Security
 
