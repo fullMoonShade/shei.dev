@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import SplitText from "@/components/animations/SplitText";
 import ShapeBlur from "@/components/animations/ShapeBlur"
+import {Button, ButtonGroup} from "@heroui/button";
 
 export default function Home() {
   const [pixelRatio, setPixelRatio] = useState(1); // Initialize with a default value
