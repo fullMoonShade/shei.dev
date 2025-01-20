@@ -6,5 +6,6 @@ Portfolio website for personal use
     - Implement hydration-overlay in next.config.js
     - Fix the hydration errors 
     - Implement animation for the Home page description text
+    - Add font
     - Security
 
